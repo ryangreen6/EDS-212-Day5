@@ -1,0 +1,74 @@
+---
+title: "EDS 212 Day5a"
+format: html
+execute:
+  warning: false
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+`head()`, `tail()`, and `dim()` on the `dplyr::starwars` dataframe
+
+```{r}
+#| include: false
+# do some exploration on the starwars data frame
+
+head(starwars, n=10)
+tail(starwars, n=10)
+dim(starwars)
+```
+
+Create a `ggplot` (scatterplot) of character mass on the y-axis and height on the x-axis
+-update the color of the points so that color changes based on the value of `mass`
+
+```{r}
+#| echo: false
+ggplot(data=starwars, aes(x=height, y=mass, color=mass)) + geom_point()
+
+#easy! Now let's make it look a little better by capitalizing axis titles and adding units
+
+ggplot(data=starwars, aes(x=height, y=mass, color=mass)) + 
+  geom_point() +
+  labs(x="Height (cm)",
+       y="Weight (kg)")
+
+```
+
+
+
+```{r}
+#| fig-cap: "This is my figure caption"
+#| fig-alt: "This is some alt text"
+# now create a histogram of character heights. update the fill color to purple, and the outside border lines of the histogram to orange. Update axis labels. Update code chunk options so that only the code and output graph appear in the rendered document. 
+
+
+ggplot(data=starwars, aes(x=height)) + 
+  geom_histogram(color='orange', fill='purple') + 
+  labs(x="Height (cm)", 
+       y= "Character Count", 
+       title="Star Wars Character Heights")
+```
+
+`df$col_name`
+```{r}
+# let's say I want to look at the mean of the characters' heights. the Round function is used to round the result data to a certain number of decimal places, in this case 3. starwars$height allows you to isolate the single column from the dataset. na.rm eliminates the NA values from that dataset, which prevent us from getting a number value.
+sw_height_mean <- round(mean(starwars$height, na.rm= TRUE), 3)
+sw_height_mean
+```
+
+# the mean height of all star wars characters listed is `r sw_height_mean`
+
+
+
+
+
+
+
+
